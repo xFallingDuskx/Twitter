@@ -14,4 +14,14 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="-2dp"
         android:layout_marginTop="-1dp" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/logout" />
 </RelativeLayout>
