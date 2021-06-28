@@ -64,6 +64,7 @@ public class TimelineActivity extends AppCompatActivity {
             public void onClick(View v) {
                 client.clearAccessToken(); // forget who's logged in
                 finish(); // navigate backwards to Login screen
+                Toast.makeText(getApplicationContext(), "You've been logged out", Toast.LENGTH_SHORT).show();
             }
         });
     }
