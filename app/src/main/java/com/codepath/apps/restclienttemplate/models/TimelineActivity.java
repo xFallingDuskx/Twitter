@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -92,5 +93,14 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure!" + response, throwable);
             }
         });
+    }
+
+    public class MainActivity extends AppCompatActivity {
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.login, menu);
+            return true;
+        }
     }
 }

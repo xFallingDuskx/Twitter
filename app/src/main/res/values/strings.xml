@@ -6,7 +6,7 @@
     <string name="intent_scheme">oauth</string>
     <string name="intent_host">cprest</string>
 
-<!-- Added -->
+    <!-- Added -->
     <string name="logout">logout</string>
 
 </resources>
