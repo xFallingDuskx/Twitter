@@ -10,9 +10,9 @@
         android:id="@+id/etCompose"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:gravity="center|center_vertical"
         tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="113dp"
+        tools:layout_editor_absoluteY="109dp"
         tools:text="Make a tweet!" />
 
     <Button
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Button"
+        android:text="Tweet"
         app:layout_constraintTop_toBottomOf="@+id/etCompose"
         tools:layout_editor_absoluteX="276dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
