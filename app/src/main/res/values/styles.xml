@@ -13,7 +13,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-<!-- Styling TextInputLayout for EditText in ComposeActivty -->
+    <!-- Styling TextInputLayout for EditText in ComposeActivty -->
     <style name="counterText">
         <item name="android:textColor">#aa5353cc</item>
     </style>
