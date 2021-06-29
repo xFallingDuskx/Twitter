@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".models.ComposeActivity">
 
-    <EditText
-        android:id="@+id/etCompose"
-        android:layout_width="300dp"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCharacterCount"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|center_vertical"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="109dp"
-        tools:text="Make a tweet!" />
+        app:counterEnabled="true"
+        app:counterMaxLength="140"
+        app:counterOverflowTextAppearance="@style/counterOverride"
+        app:counterTextAppearance="@style/counterText"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <EditText
+            android:id="@+id/etCompose"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_vertical"
+            tools:layout_editor_absoluteX="55dp"
+            tools:layout_editor_absoluteY="109dp"
+            android:hint="What's on your mind?" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnTweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_below="@+id/tilCharacterCount"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="36dp"
+        android:layout_marginRight="5dp"
         android:text="Tweet"
         app:layout_constraintTop_toBottomOf="@+id/etCompose"
-        tools:layout_editor_absoluteX="276dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        tools:layout_editor_absoluteX="269dp" />
+</RelativeLayout>
