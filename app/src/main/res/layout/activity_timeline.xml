@@ -34,9 +34,10 @@
         android:text="@string/logout" />
 
 <!--    Progress Indicator when loading/refreshing -->
-    <ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
+    <ProgressBar
+        android:id="@+id/pbProgressAction"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pbProgressAction" />
+        android:visibility="gone" />
 </RelativeLayout>

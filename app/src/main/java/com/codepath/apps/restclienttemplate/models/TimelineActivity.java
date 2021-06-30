@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.codepath.apps.restclienttemplate.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.LoginActivity;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TweetsAdapter;
@@ -36,6 +37,9 @@ public class TimelineActivity extends AppCompatActivity {
 
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE = 20;
+
+    // Endless Scrolling
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     // Instance of the progress action-view
     MenuItem miActionProgressItem;
@@ -64,7 +68,8 @@ public class TimelineActivity extends AppCompatActivity {
         adapter = new TweetsAdapter(this, tweets);
         // Set up recycler view:
             // Layout manager
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvTweets.setLayoutManager(linearLayoutManager);
             // Adapter
         rvTweets.setAdapter(adapter);
 
@@ -100,6 +105,19 @@ public class TimelineActivity extends AppCompatActivity {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+
+    // Endless Scrolling
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextDataFromApi(page);
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvTweets.addOnScrollListener(scrollListener);
     }
 
     private void populateHomeTimeline() {
@@ -152,10 +170,10 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     @Override
-    // request code is what we are getting back
-    // resultCode is from Android
-    //data is what the child activity is sending back
+    // Posting new tweet
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        showProgressBar();
+
         // verify first
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             // get data from ComposeActivity intent (aka a tweet)
@@ -168,6 +186,8 @@ public class TimelineActivity extends AppCompatActivity {
 
             // want to scroll to the top of recyclerview after each new tweet
             rvTweets.smoothScrollToPosition(0);
+
+            hideProgressBar();
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -197,6 +217,7 @@ public class TimelineActivity extends AppCompatActivity {
                 }
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainer.setRefreshing(false);
+
             }
 
             @Override
@@ -206,7 +227,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
-    //  Progres Indicator - methods get reference to menu item
+    //  Progress Indicator - methods get reference to menu item
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // Store instance of the menu item containing progress
@@ -223,6 +244,38 @@ public class TimelineActivity extends AppCompatActivity {
 
     public void hideProgressBar() {
         miActionProgressItem.setVisible(false);
+    }
+
+// Endless Scrolling
+    // Append the next page of data into the adapter
+    // This method probably sends out a network request and appends new data items to your adapter.
+    public void loadNextDataFromApi(int offset) {
+        // Send an API request to retrieve appropriate paginated data
+
+        final Tweet tweet = tweets.get(tweets.size() - 1);
+        int tweetID = tweet.id;
+
+        client.updateHomeTimeline(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.i(TAG, "Homeline updated!" + json.toString());
+                JSONArray jsonArray = json.jsonArray;
+                try {
+                    // Always want to update the arraylist rather than replace it
+                    tweets.addAll(Tweet.fromJsonArray(jsonArray));
+                    // Notify the adapter new items have been added
+                    adapter.notifyItemRangeInserted(tweets.size() - 26, tweets.size() - 1);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Json exception", e);
+                    e.printStackTrace();
+                }
+
+            }
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.e(TAG, "Homeline update has failed!" + response, throwable);
+            }
+        }, 25, tweetID);
     }
 
 }

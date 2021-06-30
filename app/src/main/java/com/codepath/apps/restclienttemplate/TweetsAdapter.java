@@ -53,7 +53,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         return tweets.size();
     }
 
-    // Definte a view holder - DO THIS FIRST
+    public void addOnScrollListener() {
+
+    }
+
+    // Define a view holder - DO THIS FIRST
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivProfileImage;
@@ -83,9 +87,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvTimestamp.setText(tweet.timestamp);
 
             if (tweet.mediaUrl != null) {
+                ivMedia.setVisibility(View.VISIBLE);
                 Glide.with(context)
                         .load(tweet.mediaUrl)
                         .into(ivMedia);
+            } else {
+                ivMedia.setVisibility(View.GONE);
             }
         }
     }

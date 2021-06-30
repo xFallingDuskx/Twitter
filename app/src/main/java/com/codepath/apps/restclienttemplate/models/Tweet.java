@@ -34,6 +34,7 @@ public class Tweet {
     public String mediaUrl;
     public List<User> userMentions; //todo: if done properly
     // todo: hashtags
+    public int id;
 
 
     // Empty constructor needed for Parceler library
@@ -46,6 +47,7 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.timestamp = tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
+        tweet.id = jsonObject.getInt("id");
 
         JSONObject entities = jsonObject.getJSONObject("entities");
         try {
