@@ -7,4 +7,13 @@
         android:visible="true"
         app:showAsAction="ifRoom" />
 
+    <!--    Progress Indicator when loading/refreshing -->
+    <item
+        android:id="@+id/miActionProgress"
+        android:title="Loading..."
+        android:visible="false"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        app:actionLayout="@layout/activity_timeline" />
+
 </menu>

@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +36,9 @@ public class TimelineActivity extends AppCompatActivity {
 
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE = 20;
+
+    // Instance of the progress action-view
+    MenuItem miActionProgressItem;
 
     // For SwipeLayoutRefresh
     private SwipeRefreshLayout swipeContainer;
@@ -201,4 +205,24 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
     }
+
+    //  Progres Indicator - methods get reference to menu item
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+
+        // Return to finish
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    // Progress Indicator - 2 methods to change the visibility of the menu item to show and hide it
+    public void showProgressBar() {
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        miActionProgressItem.setVisible(false);
+    }
+
 }
