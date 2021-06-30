@@ -250,21 +250,26 @@ public class TimelineActivity extends AppCompatActivity {
     // Append the next page of data into the adapter
     // This method probably sends out a network request and appends new data items to your adapter.
     public void loadNextDataFromApi(int offset) {
-        // Send an API request to retrieve appropriate paginated data
+        showProgressBar();
 
+        // Send an API request to retrieve appropriate paginated data
         final Tweet tweet = tweets.get(tweets.size() - 1);
-        int tweetID = tweet.id;
+        long tweetID = tweet.id;
 
         client.updateHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.i(TAG, "Homeline updated!" + json.toString());
+                Log.i(TAG, "Plus 50!");
                 JSONArray jsonArray = json.jsonArray;
                 try {
                     // Always want to update the arraylist rather than replace it
                     tweets.addAll(Tweet.fromJsonArray(jsonArray));
                     // Notify the adapter new items have been added
-                    adapter.notifyItemRangeInserted(tweets.size() - 26, tweets.size() - 1);
+//                    adapter.notifyItemRangeInserted(tweets.size() - 26, tweets.size() - 1);
+                    adapter.notifyDataSetChanged();
+
+                    hideProgressBar();
                 } catch (JSONException e) {
                     Log.e(TAG, "Json exception", e);
                     e.printStackTrace();
@@ -275,7 +280,6 @@ public class TimelineActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.e(TAG, "Homeline update has failed!" + response, throwable);
             }
-        }, 25, tweetID);
+        }, 50, tweetID);
     }
-
 }

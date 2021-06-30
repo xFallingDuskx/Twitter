@@ -34,7 +34,7 @@ public class Tweet {
     public String mediaUrl;
     public List<User> userMentions; //todo: if done properly
     // todo: hashtags
-    public int id;
+    public long id;
 
 
     // Empty constructor needed for Parceler library
@@ -47,7 +47,7 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.timestamp = tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
-        tweet.id = jsonObject.getInt("id");
+        tweet.id = jsonObject.getLong("id");
 
         JSONObject entities = jsonObject.getJSONObject("entities");
         try {
@@ -59,7 +59,7 @@ public class Tweet {
         }
 
 
-        tweet.userMentions = getUserMentions(entities.getJSONArray("user_mentions"));
+//        tweet.userMentions = getUserMentions(entities.getJSONArray("user_mentions"));
 
         return tweet;
     }
@@ -123,12 +123,12 @@ public class Tweet {
     }
 
     // Get list of userMentions from the json array user_mention
-    public static List<User> getUserMentions(JSONArray jsonArray) throws JSONException {
-        List<User> userMentions = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
-            User user = User.fromJson(jsonArray.getJSONObject(i));
-            userMentions.add(user);
-        }
-        return userMentions;
-    }
+//    public static List<User> getUserMentions(JSONArray jsonArray) throws JSONException {
+//        List<User> userMentions = new ArrayList<>();
+//        for (int i = 0; i < jsonArray.length(); i++) {
+//            User user = User.fromJson(jsonArray.getJSONObject(i));
+//            userMentions.add(user);
+//        }
+//        return userMentions;
+//    }
 }
