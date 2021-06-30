@@ -17,6 +17,8 @@ import java.util.Locale;
 @Parcel
 public class Tweet {
 
+    public static final String TAG = "Tweet";
+
     // Timestamp abbrev formating
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
@@ -28,6 +30,12 @@ public class Tweet {
     public User user;
     public String timestamp;
 
+    // Additional information
+    public String mediaUrl;
+    public List<User> userMentions; //todo: if done properly
+    // todo: hashtags
+
+
     // Empty constructor needed for Parceler library
     public Tweet() {}
 
@@ -38,6 +46,19 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.timestamp = tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
+
+        JSONObject entities = jsonObject.getJSONObject("entities");
+        try {
+            tweet.mediaUrl = entities.getJSONArray("media").getJSONObject(0).getString("media_url_https");
+            Log.i(TAG, "Media URL is: " + tweet.mediaUrl);
+        } catch (JSONException e) {
+            tweet.mediaUrl = null;
+            Log.i(TAG, "No media URL is available", e);
+        }
+
+
+        tweet.userMentions = getUserMentions(entities.getJSONArray("user_mentions"));
+
         return tweet;
     }
 
@@ -97,5 +118,15 @@ public class Tweet {
             tweets.add(fromJson(jsonArray.getJSONObject(i)));
         }
         return tweets;
+    }
+
+    // Get list of userMentions from the json array user_mention
+    public static List<User> getUserMentions(JSONArray jsonArray) throws JSONException {
+        List<User> userMentions = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            User user = User.fromJson(jsonArray.getJSONObject(i));
+            userMentions.add(user);
+        }
+        return userMentions;
     }
 }
