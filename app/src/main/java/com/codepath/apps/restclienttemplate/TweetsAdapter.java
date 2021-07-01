@@ -67,6 +67,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvName;
         TextView tvTimestamp;
         ImageView ivMedia;
+        TextView tvReplies;
+        TextView tvRetweets;
+        TextView tvFavorites;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -76,6 +79,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvName = itemView.findViewById(R.id.tvName);
             tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
             ivMedia = itemView.findViewById(R.id.ivMedia);
+            tvReplies = itemView.findViewById(R.id.tvReplies);
+            tvRetweets = itemView.findViewById(R.id.tvRetweets);
+            tvFavorites = itemView.findViewById(R.id.tvFavorites);
         }
 
         public void bind(Tweet tweet) {
@@ -88,6 +94,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .transform(new CircleCrop())
                     .into(ivProfileImage);
             tvTimestamp.setText(tweet.timestamp);
+            tvReplies.setText(String.valueOf(tweet.replyCount));
+            tvRetweets.setText(String.valueOf(tweet.retweetCount));
+            tvFavorites.setText(String.valueOf(tweet.favoriteCount));
 
             if (tweet.mediaUrl != null) {
                 ivMedia.setVisibility(View.VISIBLE);
