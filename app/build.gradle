@@ -61,4 +61,9 @@ dependencies {
 
     // Toolbar
     implementation 'androidx.appcompat:appcompat:1.0.0'
+
+    // Toolbar - React to scrolling
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0-rc01'
 }

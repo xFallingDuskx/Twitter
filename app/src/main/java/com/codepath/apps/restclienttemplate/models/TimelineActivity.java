@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.EndlessRecyclerViewScrollListener;
@@ -53,7 +54,8 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     TweetsAdapter adapter;
 
-    Button btnLogout;
+    ImageView ivLogout;
+    ImageView ivCompose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,18 +84,32 @@ public class TimelineActivity extends AppCompatActivity {
             // Adapter
         rvTweets.setAdapter(adapter);
 
-        // Define button
-        btnLogout = findViewById(R.id.btnLogout);
+        // Define Logout ImageView in Menu
+        ivLogout = findViewById(R.id.ivLogout);
+        // Define compose icon to log out
+        ivCompose = findViewById(R.id.ivCompose);
 
         populateHomeTimeline();
 
         // When someone has clicked on the Logout button
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        ivLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 client.clearAccessToken(); // forget who's logged in
                 finish(); // navigate backwards to Login screen
                 Toast.makeText(getApplicationContext(), "You've been logged out", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // When someone has clicked on the Logout button
+        ivCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle intent to take user to ComposeActivity
+                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
+                // TODO: request code
+                startActivityForResult(intent, REQUEST_CODE);
+                Log.i(TAG, "onOptionsItem Selected - Compose menu item has been selected");
             }
         });
 
@@ -110,10 +126,10 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
         // Configure the refreshing colors
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
+        swipeContainer.setColorSchemeResources(R.color.twitter_blue,
+                R.color.twitter_blue_30,
+                R.color.twitter_blue,
+                R.color.twitter_blue_30);
 
     // Endless Scrolling
         // Retain an instance so that you can call `resetState()` for fresh searches
@@ -161,22 +177,21 @@ public class TimelineActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.miCompose:
-                // Handle intent to take user to ComposeActivity
-                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
-                // TODO: request code
-                this.startActivityForResult(intent, REQUEST_CODE);
-                Log.i(TAG, "onOptionsItem Selected - Compose menu item has been selected");
-                return true;
-            // another case - when a different menu item is selected
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle presses on the action bar items
+//        switch (item.getItemId()) {
+//            case R.id.miCompose:
+//                // Handle intent to take user to ComposeActivity
+//                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
+//                this.startActivityForResult(intent, REQUEST_CODE);
+//                Log.i(TAG, "onOptionsItem Selected - Compose menu item has been selected");
+//                return true;
+//            // another case - when a different menu item is selected
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     @Override
     // Posting new tweet
