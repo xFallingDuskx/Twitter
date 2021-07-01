@@ -11,6 +11,8 @@
         android:id="@+id/tilCharacterCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvReplyTo"
+        android:layout_marginTop="5dp"
         app:counterEnabled="true"
         app:counterMaxLength="280"
         app:counterOverflowTextAppearance="@style/counterOverride"
@@ -38,7 +40,32 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="36dp"
         android:layout_marginRight="5dp"
+        android:background="@drawable/rounded_button"
         android:text="Tweet"
-        app:layout_constraintTop_toBottomOf="@+id/etCompose"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/tvReplyTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Replying to"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvReplyToUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/tvReplyTo"
+        android:text="TextView"
+        android:textSize="18sp" />
+    app:layout_constraintTop_toBottomOf="@+id/etCompose"
         tools:layout_editor_absoluteX="269dp" />
 </RelativeLayout>
