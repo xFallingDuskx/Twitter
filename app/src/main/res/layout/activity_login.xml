@@ -13,8 +13,10 @@
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="250dp"
+        android:layout_marginBottom="259dp"
         android:background="@drawable/rounded_button"
         android:onClick="loginToRest"
         android:text="@string/login_label"
@@ -28,7 +30,7 @@
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="109dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="50dp"
         app:srcCompat="@drawable/twitter_blue_logo" />
 
 </RelativeLayout>
