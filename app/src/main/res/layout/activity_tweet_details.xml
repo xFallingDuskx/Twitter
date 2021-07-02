@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TweetDetailsActivity">
+
+    <ImageView
+        android:id="@+id/ivProfileImage_Details"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvName_Details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileImage_Details"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Stephon_Ricks" />
+
+    <TextView
+        android:id="@+id/tvScreenName_Details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileImage_Details"
+        app:layout_constraintTop_toBottomOf="@+id/tvName_Details"
+        tools:text="ricks_stephon" />
+
+    <TextView
+        android:id="@+id/tvBody_Details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivProfileImage_Details"
+        tools:text="This is my first tweet!" />
+
+    <ImageView
+        android:id="@+id/ivComments_Details"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tvBody_Details"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/ivProfileImage_Details"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBody_Details"
+        app:srcCompat="@drawable/speech_icon_4" />
+
+    <ImageView
+        android:id="@+id/ivRetweets_Details"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tvBody_Details"
+        android:layout_alignParentBottom="false"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/ivComments_Details"
+        app:layout_constraintStart_toEndOf="@+id/ivComments_Details"
+        app:layout_constraintTop_toBottomOf="@+id/tvBody_Details"
+        app:srcCompat="@drawable/ic_vector_retweet_stroke" />
+
+    <ImageView
+        android:id="@+id/ivFavorites_Details"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tvBody_Details"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/ivRetweets_Details"
+        app:layout_constraintStart_toEndOf="@+id/ivRetweets_Details"
+        app:layout_constraintTop_toBottomOf="@+id/tvBody_Details"
+        app:srcCompat="@drawable/ic_vector_heart_stroke" />
+
+    <ImageView
+        android:id="@+id/ivShare_Details"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tvBody_Details"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="false"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@+id/ivFavorites_Details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBody_Details"
+        app:srcCompat="@drawable/share_icon_2" />
+</androidx.constraintlayout.widget.ConstraintLayout>

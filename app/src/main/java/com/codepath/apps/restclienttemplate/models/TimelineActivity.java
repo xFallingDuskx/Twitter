@@ -109,7 +109,7 @@ public class TimelineActivity extends AppCompatActivity {
                 Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
                 // TODO: request code
                 startActivityForResult(intent, REQUEST_CODE);
-                Log.i(TAG, "onOptionsItem Selected - Compose menu item has been selected");
+                Log.i(TAG, "Compose menu item has been selected");
             }
         });
 

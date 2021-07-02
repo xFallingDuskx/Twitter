@@ -36,6 +36,47 @@ public class Tweet {
     // todo: hashtags
     public long id;
     public int replyCount;
+
+    public String getBody() {
+        return body;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public List<User> getUserMentions() {
+        return userMentions;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public int getReplyCount() {
+        return replyCount;
+    }
+
+    public int getRetweetCount() {
+        return retweetCount;
+    }
+
+    public int getFavoriteCount() {
+        return favoriteCount;
+    }
+
     public int retweetCount;
     public int favoriteCount;
 

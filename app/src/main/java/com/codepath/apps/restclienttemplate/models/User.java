@@ -15,6 +15,18 @@ public class User {
     public String screenName; // aka the handle
     public String profileImageURL;
 
+    public String getName() {
+        return name;
+    }
+
+    public String getScreenName() {
+        return screenName;
+    }
+
+    public String getProfileImageURL() {
+        return profileImageURL;
+    }
+
     // Empty constructor for Parceler library
     public User() {}
 

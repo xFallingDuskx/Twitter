@@ -1,6 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.codepath.apps.restclienttemplate.models.ComposeActivity;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.jetbrains.annotations.NotNull;
+import org.parceler.Parcels;
 
 import java.util.List;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder>{
+
+    public static final String TAG = "TweetsAdapter";
+    private final int REQUEST_CODE = 20;
 
     Context context;
     List<Tweet> tweets;
@@ -82,6 +89,44 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvReplies = itemView.findViewById(R.id.tvReplies);
             tvRetweets = itemView.findViewById(R.id.tvRetweets);
             tvFavorites = itemView.findViewById(R.id.tvFavorites);
+            Log.i(TAG, "Testing");
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // gets item position
+                    int position = getAdapterPosition();
+                    // make sure the position is valid, i.e. actually exists in the view
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get the movie at the position, this won't work if the class is static
+                        Tweet tweet = tweets.get(position);
+                        // create intent for the new activity
+                        Intent intent = new Intent(context, TweetDetailsActivity.class);
+                        // serialize the movie using parceler, use its short name as a key
+                        // 1st parameter is what we want to call the data and get the data in the other activity
+                        // 2nd parameter is the data value we are using
+                        intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                        // show the activity
+                        context.startActivity(intent);
+
+                        Log.i(TAG, "Opening TweetDetailsActivity");
+                    }
+                }
+            });
+
+            // When someone has clicked on the Logout button
+//            tvReplies.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    // Handle intent to take user to ComposeActivity
+//                    Intent intent = new Intent(context, ComposeActivity.class);
+//                    // TODO: request code
+//                    startActivityForResult(intent, REQUEST_CODE);
+//                    Log.i(TAG, "Compose menu item has been selected");
+//                }
+//            });
         }
 
         public void bind(Tweet tweet) {
@@ -107,6 +152,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 ivMedia.setVisibility(View.GONE);
             }
         }
+
+
     }
 
 
@@ -123,4 +170,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         tweets.addAll(list);
         notifyDataSetChanged();
     }
+
+
 }

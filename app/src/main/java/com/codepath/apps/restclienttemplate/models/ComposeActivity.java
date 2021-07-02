@@ -65,7 +65,7 @@ public class ComposeActivity extends AppCompatActivity {
 
                             // To send the data back once the child activity ComposeActivity has been completed
                             Intent intent = new Intent();
-                            // To padd complex data (aka custom classes) in a bundle:
+                            // To pack complex data (aka custom classes) in a bundle:
                             intent.putExtra("tweet", Parcels.wrap(tweet));
                             // set result code and bundle data for response
                             setResult(RESULT_OK, intent);
