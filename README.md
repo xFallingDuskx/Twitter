@@ -46,7 +46,11 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='TwitterWalkthrough_1.gif' title='Video Portrait Walkthrough' width='' alt='Video Walkthrough Clip 1' />
+<img src='TwitterWalkthrough_2.gif' title='Video Portrait Walkthrough' width='' alt='Video Walkthrough Clip 2' />
+<img src='TwitterWalkthrough_3.gif' title='Video Portrait Walkthrough' width='' alt='Video Walkthrough Clip 3' />
+<img src='TwitterWalkthrough4.gif' title='Video Portrait Walkthrough' width='' alt='Video Walkthrough Clip 4' />
+<img src='TwitterWalkthrough5.gif' title='Video Portrait Walkthrough' width='' alt='Video Walkthrough Clip 5' />
 
 GIF created with [Kap](https://getkap.co/).
 
