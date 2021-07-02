@@ -54,6 +54,8 @@ public class ComposeActivity extends AppCompatActivity {
                 }
                 Toast.makeText(ComposeActivity.this, tweetContent, Toast.LENGTH_LONG).show();
 
+                Log.i(TAG, "Tweet content is" + tweetContent);
+
                 // Make an API call to Twitter to publish the tweet
                 client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
                     @Override
@@ -62,7 +64,6 @@ public class ComposeActivity extends AppCompatActivity {
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
                             Log.i(TAG, "Published tweet says: " + tweet.body);
-
                             // To send the data back once the child activity ComposeActivity has been completed
                             Intent intent = new Intent();
                             // To pack complex data (aka custom classes) in a bundle:
@@ -78,7 +79,7 @@ public class ComposeActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                        Log.e(TAG, "onFailure to publish tweet", throwable);
+                        Log.e(TAG, "onFailure to publish tweet" + response, throwable);
                     }
                 });
             }

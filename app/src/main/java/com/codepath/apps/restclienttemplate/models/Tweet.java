@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Parcel
 public class Tweet {
@@ -41,40 +42,8 @@ public class Tweet {
         return body;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
     public User getUser() {
         return user;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public String getMediaUrl() {
-        return mediaUrl;
-    }
-
-    public List<User> getUserMentions() {
-        return userMentions;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public int getReplyCount() {
-        return replyCount;
-    }
-
-    public int getRetweetCount() {
-        return retweetCount;
-    }
-
-    public int getFavoriteCount() {
-        return favoriteCount;
     }
 
     public int retweetCount;
@@ -87,7 +56,14 @@ public class Tweet {
     // Given a JSON object (representing the tweet), return a Tweet object
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
-        tweet.body = jsonObject.getString("full_text");
+
+
+        if (jsonObject.has("full_text")) {
+            tweet.body = jsonObject.getString("full_text");
+        } else {
+            tweet.body = jsonObject.getString("text");
+        }
+
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.timestamp = tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
@@ -95,6 +71,30 @@ public class Tweet {
         tweet.replyCount = 0; //jsonObject.getInt("reply_count");
         tweet.retweetCount = jsonObject.getInt("retweet_count");
         tweet.favoriteCount = jsonObject.getInt("favorite_count");
+
+        // To randomize my own tweet 'mock' data
+        boolean randomizeAll = tweet.retweetCount == 0 && tweet.favoriteCount == 0;
+
+        if (randomizeAll) {
+            tweet.retweetCount = ThreadLocalRandom.current().nextInt(1, 11);
+            tweet.favoriteCount = ThreadLocalRandom.current().nextInt(1, 11);
+        }
+
+        // # of replies for each Tweet seems to be unavailable
+        // Want a reasonable # of replies to match the # of favorites
+        boolean randomizeReplies = tweet.retweetCount != 0 && tweet.favoriteCount != 0;
+
+        if (randomizeReplies) {
+            if (tweet.favoriteCount > 75) {
+                tweet.replyCount = ThreadLocalRandom.current().nextInt(60, 150);
+            } else if (tweet.favoriteCount > 50) {
+                tweet.replyCount = ThreadLocalRandom.current().nextInt(45, 100);
+            } else if (tweet.favoriteCount > 25) {
+                tweet.replyCount = ThreadLocalRandom.current().nextInt(10, 50);
+            } else {
+                tweet.replyCount = ThreadLocalRandom.current().nextInt(5, 20);
+            }
+        }
 
         JSONObject entities = jsonObject.getJSONObject("entities");
         try {
@@ -104,9 +104,6 @@ public class Tweet {
             tweet.mediaUrl = null;
             Log.i(TAG, "No media URL is available", e);
         }
-
-
-//        tweet.userMentions = getUserMentions(entities.getJSONArray("user_mentions"));
 
         return tweet;
     }

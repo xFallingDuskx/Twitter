@@ -25,7 +25,6 @@ import java.util.List;
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder>{
 
     public static final String TAG = "TweetsAdapter";
-    private final int REQUEST_CODE = 20;
 
     Context context;
     List<Tweet> tweets;
@@ -152,8 +151,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 ivMedia.setVisibility(View.GONE);
             }
         }
-
-
     }
 
 
