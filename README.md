@@ -58,7 +58,7 @@ GIF created with [Kap](https://getkap.co/).
 
 - Getting ProgressBar to show when any background or network task is happening can be difficult due to the implemented refresh notice and high-speed network 
 - While it is easy to obtain the screen name of the user when replying, it is a challenge to actually have the posted tweet act as a reply to the original tweet
-- 
+- Occasional glitching of menu items within the toolbar
 
 ## Open-source libraries used
 
