@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvName_Details;
     TextView tvScreenName_Details;
     TextView tvBody_Details;
+    ImageView ivMedia_Details;
     ImageView ivComments_Details;
     ImageView ivRetweets_Details;
     ImageView ivFavorites_Details;
@@ -38,6 +40,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
         ivComments_Details = findViewById(R.id.ivComments_Details);
         ivRetweets_Details = findViewById(R.id.ivRetweets_Details);
         ivFavorites_Details = findViewById(R.id.ivFavorites_Details);
+        ivMedia_Details = findViewById(R.id.ivMedia_Details);
 
         tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
         Log.d(TAG, String.format("Showing details for the user '%s'", tweet.user));
@@ -47,11 +50,22 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvScreenName_Details.setText("@" + tweet.getUser().getScreenName());
         tvBody_Details.setText(tweet.getBody());
 
-        // Defining ImageView
+        // Defining ImageViews
         Glide.with(this)
                 .load(tweet.getUser().getProfileImageURL())
                 .centerCrop() // scale image to fill the entire ImageView
                 .transform(new CircleCrop())
                 .into(ivProfileImage_Details);
+
+        if (tweet.mediaUrl != null) {
+            Log.i(TAG, "Media URL is: " + tweet.mediaUrl);
+            ivMedia_Details.setVisibility(View.VISIBLE);
+            Glide.with(this)
+                    .load(tweet.mediaUrl)
+                    .into(ivMedia_Details);
+        } else {
+            Log.i(TAG, "No media is available");
+            ivMedia_Details.setVisibility(View.GONE);
+        }
     }
 }
