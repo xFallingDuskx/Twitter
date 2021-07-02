@@ -90,7 +90,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvFavorites = itemView.findViewById(R.id.tvFavorites);
             Log.i(TAG, "Testing");
 
-
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -114,18 +113,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     }
                 }
             });
-
-            // When someone has clicked on the Logout button
-//            tvReplies.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    // Handle intent to take user to ComposeActivity
-//                    Intent intent = new Intent(context, ComposeActivity.class);
-//                    // TODO: request code
-//                    startActivityForResult(intent, REQUEST_CODE);
-//                    Log.i(TAG, "Compose menu item has been selected");
-//                }
-//            });
         }
 
         public void bind(Tweet tweet) {
@@ -152,7 +139,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             }
         }
     }
-
 
     // For SwipeRefreshLayout (aka Infinite Scroll)
     // Clean all elements of the recycler

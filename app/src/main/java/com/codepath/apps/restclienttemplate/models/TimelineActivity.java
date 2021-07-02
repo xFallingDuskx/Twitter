@@ -39,21 +39,14 @@ public class TimelineActivity extends AppCompatActivity {
 
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE = 20;
-
-    // Endless Scrolling
+    private SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
 
-    // Instance of the progress action-view
     MenuItem miActionProgressItem;
-
-    // For SwipeLayoutRefresh
-    private SwipeRefreshLayout swipeContainer;
-
     TwitterClient client;
     RecyclerView rvTweets;
     List<Tweet> tweets;
     TweetsAdapter adapter;
-
     ImageView ivLogout;
     ImageView ivCompose;
 
@@ -100,7 +93,6 @@ public class TimelineActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "You've been logged out", Toast.LENGTH_SHORT).show();
             }
         });
-
         // When someone has clicked on the Logout button
         ivCompose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,9 +152,7 @@ public class TimelineActivity extends AppCompatActivity {
                     Log.e(TAG, "Json exception", e);
                     e.printStackTrace();
                 }
-
             }
-
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.e(TAG, "onFailure!" + response, throwable);
@@ -176,22 +166,6 @@ public class TimelineActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.login, menu);
         return true;
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle presses on the action bar items
-//        switch (item.getItemId()) {
-//            case R.id.miCompose:
-//                // Handle intent to take user to ComposeActivity
-//                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
-//                this.startActivityForResult(intent, REQUEST_CODE);
-//                Log.i(TAG, "onOptionsItem Selected - Compose menu item has been selected");
-//                return true;
-//            // another case - when a different menu item is selected
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 
     @Override
     // Posting new tweet
@@ -213,7 +187,6 @@ public class TimelineActivity extends AppCompatActivity {
 
             hideProgressBar();
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -243,7 +216,6 @@ public class TimelineActivity extends AppCompatActivity {
                 swipeContainer.setRefreshing(false);
 
             }
-
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.d(TAG, "Fetch timeline error: " + throwable);
@@ -298,7 +270,6 @@ public class TimelineActivity extends AppCompatActivity {
                     Log.e(TAG, "Json exception", e);
                     e.printStackTrace();
                 }
-
             }
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {

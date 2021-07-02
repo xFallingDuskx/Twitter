@@ -30,13 +30,15 @@ public class Tweet {
     public String createdAt;
     public User user;
     public String timestamp;
-
-    // Additional information
     public String mediaUrl;
-    public List<User> userMentions; //todo: if done properly
-    // todo: hashtags
+    public List<User> userMentions;
     public long id;
     public int replyCount;
+    public int retweetCount;
+    public int favoriteCount;
+
+    // Empty constructor needed for Parceler library
+    public Tweet() {}
 
     public String getBody() {
         return body;
@@ -46,18 +48,11 @@ public class Tweet {
         return user;
     }
 
-    public int retweetCount;
-    public int favoriteCount;
-
-
-    // Empty constructor needed for Parceler library
-    public Tweet() {}
-
     // Given a JSON object (representing the tweet), return a Tweet object
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
 
-
+        // Some tweets have "full_text" while others have "text"
         if (jsonObject.has("full_text")) {
             tweet.body = jsonObject.getString("full_text");
         } else {
@@ -74,16 +69,14 @@ public class Tweet {
 
         // To randomize my own tweet 'mock' data
         boolean randomizeAll = tweet.retweetCount == 0 && tweet.favoriteCount == 0;
-
         if (randomizeAll) {
-            tweet.retweetCount = ThreadLocalRandom.current().nextInt(1, 11);
-            tweet.favoriteCount = ThreadLocalRandom.current().nextInt(1, 11);
+            tweet.retweetCount = ThreadLocalRandom.current().nextInt(0, 5);
+            tweet.favoriteCount = ThreadLocalRandom.current().nextInt(5, 20);
         }
 
         // # of replies for each Tweet seems to be unavailable
         // Want a reasonable # of replies to match the # of favorites
         boolean randomizeReplies = tweet.retweetCount != 0 && tweet.favoriteCount != 0;
-
         if (randomizeReplies) {
             if (tweet.favoriteCount > 75) {
                 tweet.replyCount = ThreadLocalRandom.current().nextInt(60, 150);
@@ -110,20 +103,6 @@ public class Tweet {
 
     // Get the relative timestamp for each Tweet
     public String getRelativeTimeAgo(String rawJsonDate) {
-//        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
-//        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
-//        sf.setLenient(true);
-//
-//        String relativeDate = "";
-//        try {
-//            long dateMillis = sf.parse(rawJsonDate).getTime();
-//            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-//                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return relativeDate;
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
         sf.setLenient(true);
@@ -165,14 +144,4 @@ public class Tweet {
         }
         return tweets;
     }
-
-    // Get list of userMentions from the json array user_mention
-//    public static List<User> getUserMentions(JSONArray jsonArray) throws JSONException {
-//        List<User> userMentions = new ArrayList<>();
-//        for (int i = 0; i < jsonArray.length(); i++) {
-//            User user = User.fromJson(jsonArray.getJSONObject(i));
-//            userMentions.add(user);
-//        }
-//        return userMentions;
-//    }
 }
